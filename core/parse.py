@@ -15,7 +15,10 @@ class Parser:
         self.unit = unit
 
         try:
-            file_path = '/Users/chadpark07/Documents/Data_Science_Projects/Recession_Analysis/core/api_access/key.txt'
+            file_path = (
+                '/Users/chadpark07/Documents/Data_Science_Projects'
+                '/Recession_Analysis/core/api_access/key.txt'
+            )
             with open(file_path, 'r') as f:
                 self.key = f.read()
         except:
