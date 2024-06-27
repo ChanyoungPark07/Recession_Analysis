@@ -1,5 +1,6 @@
 import requests
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -67,8 +68,50 @@ class Parser:
         except:
             print(f'Failed to retrieve data: {response.status_code}')
         
-        return data
+        return data['observations']
+
+    def get_date_value(self, data):
+        """
+        Gets dates and values from the data
+        """
+
+        return [{'date':values['date'], 'value':values['value']} for values in data]
+
+    def convert_dataframe(self, data):
+        """
+        Converts data into dataframe
+        """
+
+        data_df = pd.DataFrame(data)
+        data_df = data_df.drop(list(data_df[data_df['value'] == '.'].index))
+        data_df['value'] = data_df['value'].astype('float')
+        return data_df
+
+    def visualizer(self, df):
+        """
+        Visualizes dataframe using line plot
+        """
+
+        sns.relplot(data=df, x='date', y='value', kind='line')
+
+        if (len(df) > 30):
+            dates = []
+            idx = 0
+            for date in list(df['date']):
+                if idx % 10 == 0:
+                    dates.append(date)
+                idx += 1
+            plt.xticks(dates)
+
+        plt.xlabel('Date')
+        plt.ylabel('Value')
+        plt.xticks(rotation=90)
+        plt.tight_layout()
+        plt.show()
     
 
 p1 = Parser('GDP', '2007-01-01', '2010-01-01')
-print(p1.get_series_data())
+p1_data = p1.get_series_data()
+p1_data_cleaned = p1.get_date_value(p1_data)
+p1_data_df = p1.convert_dataframe(p1_data_cleaned)
+p1.visualizer(p1_data_df)
