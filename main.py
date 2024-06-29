@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import datetime
 from core.parse import Parser
+from core.info import recession_info
 
 # Dashboard Title
 st.title('Recession Dashboard')
@@ -18,7 +19,7 @@ series_id_dict = {
     'Gross Domestic Product': 'GDP',
     'Unemployment Rate': 'UNRATE',
     'Personal Consumption Expenditures': 'PCE',
-    'Personal Consumption Expenditures (PCE) Excluding Food and Energy': 'DPCCRV1Q225SBEA',
+    'Personal Consumption Expenditures Excluding Food and Energy': 'DPCCRV1Q225SBEA',
     'NASDAQ Composite Index': 'NASDAQCOM',
     'All-Transactions House Price Index': 'USSTHPI'
     }
@@ -29,9 +30,15 @@ factor_option = st.selectbox(
     ('Gross Domestic Product', 
     'Unemployment Rate', 
     'Personal Consumption Expenditures', 
-    'Personal Consumption Expenditures (PCE) Excluding Food and Energy', 
+    'Personal Consumption Expenditures Excluding Food and Energy', 
     'NASDAQ Composite Index', 
     'All-Transactions House Price Index')
+    )
+
+# Input box for Series ID
+factor_input = st.text_input(
+    label='Enter a Series ID from the FRED Website - https://fred.stlouisfed.org',
+    placeholder='Type Input Here and Press Enter'
     )
 
 # Date Slider
@@ -45,17 +52,28 @@ date_slider = st.slider(
     )
 
 # Get Data Using Recession Factor and Dates and Visualize
-series_id = series_id_dict[factor_option]
+if factor_input is not None:
+    series_id = factor_input
+else:
+    series_id = series_id_dict[factor_option]
+
 start_date, end_date = st.session_state['slider']
 start_date = st.session_state['slider'][0].strftime('%Y-%m-%d')
 end_date = st.session_state['slider'][1].strftime('%Y-%m-%d')
 
-p1 = Parser(series_id, start_date, end_date)
-p1_data = p1.get_series_data()
+try:
+    p1 = Parser(series_id, start_date, end_date)
+    p1_data = p1.get_series_data()
+except KeyError as e:
+    st.write('Invalid Series ID - Please Double Check if Input Exists in FRED Website')
+    series_id = series_id_dict[factor_option]
+    p1 = Parser(series_id, start_date, end_date)
+    p1_data = p1.get_series_data()
+
 p1_data_cleaned = p1.get_date_value(p1_data)
 
 if (len(p1_data_cleaned) <= 5):
-    st.write("**Important**: Choose a Larger Timeframe!")
+    st.write('Invalid Timeframe - Choose a Larger Timeframe!')
 else:
     p1_data_df = p1.convert_dataframe(p1_data_cleaned)
     fig = p1.visualizer(p1_data_df, start_date, end_date)
@@ -96,52 +114,4 @@ fig = p1.recession_visualizer(p1_data_df, start_date, end_date, recession_option
 st.pyplot(fig)
 
 # Explanation of Factors Behind each Recession
-if (recession_option == '1973–1975 Recession'):
-    st.markdown(
-        """
-        Information about the 1973–1975 Recession:
-        
-        """
-    )
-elif (recession_option == '1980 Recession'):
-    st.markdown(
-        """
-        Information about the 1980 Recession:
-        
-        """
-    )
-elif (recession_option == '1981-1982 Recession'):
-    st.markdown(
-        """
-        Information about the 1981-1982 Recession:
-        
-        """
-    )
-elif (recession_option == 'Early 1990s Recession'):
-    st.markdown(
-        """
-        Information about the Early 1990s Recession:
-        
-        """
-    )
-elif (recession_option == 'Early 2000s Recession'):
-    st.markdown(
-        """
-       Information about the Early 2000s Recession:
-        
-        """
-    )
-elif (recession_option == 'Great Recession'):
-    st.markdown(
-        """
-        Information about the Great Recession:
-        
-        """
-    )
-elif (recession_option == 'COVID-19 Recession'):
-    st.markdown(
-        """
-        Information about the COVID-19 Recession:
-        
-        """
-    )
+st.markdown(recession_info[recession_option])

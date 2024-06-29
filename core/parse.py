@@ -1,5 +1,4 @@
 import requests
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -106,7 +105,7 @@ class Parser:
             dates = df['date']
 
         scatter_df = df[df['date'].isin(dates)]
-        sns.scatterplot(data=scatter_df, x='date', y='value', color='deepskyblue')
+        sns.scatterplot(data=scatter_df, x='date', y='value', color='red')
 
         plt.title(f'FRED API Plot - {self.series_id}')
         
@@ -148,7 +147,7 @@ class Parser:
             dates = df['date']
 
         scatter_df = df[df['date'].isin(dates)]
-        sns.scatterplot(data=scatter_df, x='date', y='value', color='deepskyblue')
+        sns.scatterplot(data=scatter_df, x='date', y='value', color='red')
 
         plt.title(f'FRED API {name} Plot - {self.series_id}')
 
