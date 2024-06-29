@@ -3,7 +3,7 @@
 This project provides a comprehensive dashboard for analyzing economic data related to recessions using the FRED API. The dashboard, built with Streamlit, allows users to explore various economic factors over different timeframes and recession periods. The visualization is paired with specific recession context and detailed explanations of the factors behind each recession.
 
 ## Streamlit Usage
-Get FRED API key from https://fred.stlouisfed.org/docs/api/api_key.html
+Get FRED API key from https://fred.stlouisfed.org/docs/api/api_key.html<br />  
 Install all libraries at the top of each file
 Run '''streamlit run''' in the terminal to access the Streamlit dashboard
 
