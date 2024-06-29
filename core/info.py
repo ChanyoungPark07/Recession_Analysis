@@ -35,13 +35,16 @@ recession_info = {
             Declining stock prices and high volatility.
             
             Inflation Rates:
-            Rising inflation rates due to higher energy costs and monetary policy adjustments.
+            Rising inflation rates due to higher energy costs 
+            and monetary policy adjustments.
             
             Consumer Confidence:
-            Decreased consumer confidence due to inflation and unemployment concerns.
+            Decreased consumer confidence due to inflation 
+            and unemployment concerns.
             
             Unemployment Rates:
-            Rising unemployment, particularly in manufacturing and energy-dependent sectors.
+            Rising unemployment, particularly in manufacturing 
+            and energy-dependent sectors.
         """,
 
     '1980 Recession':
@@ -63,7 +66,8 @@ recession_info = {
             
             Second Oil Crisis:
             The 1979 oil crisis, triggered by the Iranian Revolution, 
-            caused oil prices to surge again, exacerbating inflation and economic instability.
+            caused oil prices to surge again, exacerbating inflation 
+            and economic instability.
             
         **Leading Indicators:**
         
@@ -103,7 +107,8 @@ recession_info = {
             The aftermath of the 1979 oil crisis continued to pressure the economy.
             
             High Inflation:
-            Persistent inflation from the late 1970s necessitated further monetary tightening.
+            Persistent inflation from the late 1970s necessitated 
+            further monetary tightening.
             
         **Leading Indicators:**
         
@@ -111,7 +116,8 @@ recession_info = {
             Sustained high interest rates impacting borrowing costs.
             
             Unemployment Rates:
-            Sharp increase in unemployment, particularly in construction and manufacturing.
+            Sharp increase in unemployment, particularly in 
+            construction and manufacturing.
             
             Consumer Confidence:
             Further declines in consumer confidence and spending.
@@ -137,7 +143,8 @@ recession_info = {
         
             Oil Price Shock:
             The 1990 oil price shock due to the Iraqi invasion of Kuwait 
-            caused a sharp increase in oil prices, impacting consumer and business spending.
+            caused a sharp increase in oil prices, impacting consumer 
+            and business spending.
             
             S&L Crisis:
             The savings and loan crisis of the late 1980s led to a significant 
@@ -182,8 +189,8 @@ recession_info = {
             burst in early 2000, leading to massive losses in stock markets.
             
             September 11 Attacks:
-            The terrorist attacks on September 11, 2001, led to immediate economic disruptions 
-            and further dampened economic activity.
+            The terrorist attacks on September 11, 2001, led to 
+            immediate economic disruptions  and further dampened economic activity.
             
             Corporate Scandals:
             High-profile corporate scandals (e.g., Enron, WorldCom) reduced investor 
@@ -238,16 +245,20 @@ recession_info = {
             Rapid decline in housing prices and increasing mortgage delinquencies.
             
             Credit Market Conditions:
-            Tightening of credit conditions and significant losses in financial institutions.
+            Tightening of credit conditions and significant losses 
+            in financial institutions.
             
             Banking Sector Health:
-            Rising number of bank failures and distress among major financial institutions.
+            Rising number of bank failures and distress among major 
+            financial institutions.
             
             Consumer Spending:
-            Decrease in consumer spending due to loss of wealth and tightening of credit.
+            Decrease in consumer spending due to loss of wealth
+            and tightening of credit.
             
             Employment Rates:
-            Increasing unemployment and significant job losses across various sectors.
+            Increasing unemployment and significant job losses 
+            across various sectors.
         """,
 
     'COVID-19 Recession':
@@ -263,8 +274,9 @@ recession_info = {
         **Causes and Black Swan Events:**
 
             Global Pandemic:
-            The COVID-19 pandemic led to widespread lockdowns, halting economic activity, 
-            and causing unprecedented disruptions in global supply chains.
+            The COVID-19 pandemic led to widespread lockdowns, 
+            halting economic activity, and causing unprecedented 
+            disruptions in global supply chains.
             
             Government Restrictions:
             Government-imposed lockdowns and restrictions severely impacted 
@@ -284,7 +296,8 @@ recession_info = {
             services and non-essential goods.
             
             Business Closures:
-            Widespread temporary and permanent closures of businesses across various sectors.
+            Widespread temporary and permanent closures of businesses 
+            across various sectors.
             
             Stock Market Volatility:
             Extreme stock market volatility and rapid declines in equity markets.

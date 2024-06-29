@@ -4,7 +4,7 @@ from core.parse import Parser
 from core.info import recession_info
 
 # Dashboard Title
-st.title('Recession Dashboard')
+st.title('FRED API Recession Dashboard')
 
 # Start and End Date for Slider
 min_date = datetime(1970, 1, 1)
