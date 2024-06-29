@@ -38,6 +38,7 @@ factor_option = st.selectbox(
 # Input box for Series ID
 factor_input = st.text_input(
     label='Enter a Series ID from the FRED Website - https://fred.stlouisfed.org',
+    value=None,
     placeholder='Type Input Here and Press Enter'
     )
 
@@ -65,7 +66,7 @@ try:
     p1 = Parser(series_id, start_date, end_date)
     p1_data = p1.get_series_data()
 except KeyError as e:
-    st.write('Invalid Series ID - Please Double Check if Input Exists in FRED Website')
+    st.write('Invalid Series ID Input - Please Double Check if Input Exists in FRED Website')
     series_id = series_id_dict[factor_option]
     p1 = Parser(series_id, start_date, end_date)
     p1_data = p1.get_series_data()
@@ -106,12 +107,17 @@ recession_option = st.selectbox(
 # Get Data Using Recession Name and Dates and Visualize
 start_date, end_date = recessions_dates[recession_option]
 
-p1 = Parser(series_id, start_date, end_date)
-p1_data = p1.get_series_data()
-p1_data_cleaned = p1.get_date_value(p1_data)
-p1_data_df = p1.convert_dataframe(p1_data_cleaned)
-fig = p1.recession_visualizer(p1_data_df, start_date, end_date, recession_option)
-st.pyplot(fig)
+try:
+    p1 = Parser(series_id, start_date, end_date)
+    p1_data = p1.get_series_data()
+    p1_data_cleaned = p1.get_date_value(p1_data)
+    p1_data_df = p1.convert_dataframe(p1_data_cleaned)
+    fig = p1.recession_visualizer(p1_data_df, start_date, end_date, recession_option)
+    st.pyplot(fig)
+except KeyError as e:
+    st.write(
+        'Recession Data May Not Be Available for this Series ID - Try a Different Recession'
+        )
 
 # Explanation of Factors Behind each Recession
 st.markdown(recession_info[recession_option])
