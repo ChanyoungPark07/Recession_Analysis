@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from datetime import datetime
 
 class Parser:
     def __init__(self, series_id, observation_start, observation_end, unit=None):
@@ -85,25 +86,74 @@ class Parser:
         data_df = pd.DataFrame(data)
         data_df = data_df.drop(list(data_df[data_df['value'] == '.'].index))
         data_df['value'] = data_df['value'].astype('float')
+        data_df['date'] = pd.to_datetime(data_df['date'])
         return data_df
 
-    def visualizer(self, df):
+    def visualizer(self, df, start_date, end_date):
         """
-        Visualizes dataframe using line plot
+        Visualizes dataframe given start and end dates using line and scatterplots
         """
 
-        sns.relplot(data=df, x='date', y='value', kind='line')
+        sns.relplot(data=df, x='date', y='value', kind='line', 
+            color='blue', height=5, aspect=2)
 
-        if (len(df) > 30):
-            dates = []
-            idx = 0
-            for date in list(df['date']):
-                if idx % 10 == 0:
-                    dates.append(date)
-                idx += 1
+        df_length = len(df)
+
+        if (df_length > 10):
+            dates = df['date'][::df_length//10]
             plt.xticks(dates)
+        else:
+            dates = df['date']
+
+        scatter_df = df[df['date'].isin(dates)]
+        sns.scatterplot(data=scatter_df, x='date', y='value', color='deepskyblue')
+
+        plt.title(f'FRED API Plot - {self.series_id}')
+        
+        recessions_dates = [
+            ('1973-11-01', '1975-03-01'),
+            ('1980-01-01', '1980-07-01'),
+            ('1981-07-01', '1982-11-01'),
+            ('1990-07-01', '1991-03-01'),
+            ('2001-03-01', '2001-11-01'), 
+            ('2007-12-01', '2009-06-01'),
+            ('2020-02-01', '2020-04-01')
+            ]
+        for recession in recessions_dates:
+            if (recession[0] > start_date and recession[1] < end_date):
+                plt.fill_between([recession[0], recession[1]], 
+                    min(df['value']), max(df['value']), color='gray', alpha=0.35)
 
         plt.xlabel('Date')
         plt.ylabel('Value')
         plt.xticks(rotation=90)
+        plt.grid()
+        plt.tight_layout()
+
+
+    def recession_visualizer(self, df, start_date, end_date, name):
+        """
+        Visualizes a spcific recession using line and scatterplots
+        """
+
+        sns.relplot(data=df, x='date', y='value', kind='line', 
+            color='blue', height=5, aspect=2)
+
+        df_length = len(df)
+
+        if (df_length > 10):
+            dates = df['date'][::df_length//10]
+            plt.xticks(dates)
+        else:
+            dates = df['date']
+
+        scatter_df = df[df['date'].isin(dates)]
+        sns.scatterplot(data=scatter_df, x='date', y='value', color='deepskyblue')
+
+        plt.title(f'FRED API {name} Plot - {self.series_id}')
+
+        plt.xlabel('Date')
+        plt.ylabel('Value')
+        plt.xticks(rotation=90)
+        plt.grid()
         plt.tight_layout()
