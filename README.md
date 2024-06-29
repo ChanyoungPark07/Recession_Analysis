@@ -21,7 +21,7 @@ Visualization: Displays line and scatter plots of the selected economic indicato
 ### parse.py
 This file contains the Parser class, which handles data extraction and cleaning from the FRED API.
 
-Key Functions:
+Key Functions:<br /> 
 __init__: Initializes the parser with series ID, start date, end date, and optionally units.<br /> 
 get_series_observations: Constructs the API URL based on input parameters.<br /> 
 get_series_data: Retrieves data from the FRED API.<br /> 
